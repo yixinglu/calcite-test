@@ -1,0 +1,1 @@
+Test calcite volcano planner optimization.
