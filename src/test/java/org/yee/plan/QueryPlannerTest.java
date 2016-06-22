@@ -1,7 +1,6 @@
 package org.yee.plan;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.apache.calcite.plan.RelOptUtil;
 import org.apache.calcite.rel.RelNode;
@@ -11,10 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.yee.schema.TestSchema;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class QueryPlannerTest {
 
@@ -34,10 +30,15 @@ public class QueryPlannerTest {
   @Test
   public void getPlan() throws Exception {
     Assert.assertNotNull(schema.getSchema());
+
     QueryPlanner planner = new QueryPlanner(schema.getSchema());
     String sql = "select stream orderid from orders where productid > 3";
     RelNode rel = planner.getPlan(sql);
-    System.out.println(RelOptUtil.toString(rel));
+
+    Assert.assertEquals(RelOptUtil.toString(rel),
+        "BindableProject(orderid=[$0])\n" +
+            "  BindableFilter(condition=[>($1, 3)])\n" +
+            "    BindableTableScan(table=[[]])\n");
   }
 
 }

@@ -12,6 +12,9 @@ public class TestSchema {
 
   private final SchemaPlus schema = Frameworks.createRootSchema(true);
 
+  public TestSchema() {
+  }
+
   public SchemaPlus getSchema() {
     return schema;
   }
