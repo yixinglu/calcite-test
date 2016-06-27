@@ -6,7 +6,6 @@ import org.apache.calcite.config.Lex;
 import org.apache.calcite.interpreter.BindableConvention;
 import org.apache.calcite.plan.Contexts;
 import org.apache.calcite.plan.ConventionTraitDef;
-import org.apache.calcite.plan.RelOptUtil;
 import org.apache.calcite.plan.RelTraitDef;
 import org.apache.calcite.plan.RelTraitSet;
 import org.apache.calcite.rel.RelCollationTraitDef;
@@ -51,8 +50,6 @@ public class QueryPlanner {
     SqlNode sqlNode = this.planner.parse(sql);
     SqlNode validated = this.planner.validate(sqlNode);
     RelNode converted = this.planner.rel(validated).rel;
-
-    System.out.println(RelOptUtil.toString(converted));
 
     RelTraitSet traitSet = converted.getTraitSet();
     traitSet = traitSet.replace(BindableConvention.INSTANCE).simplify();
